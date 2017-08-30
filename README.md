@@ -13,9 +13,7 @@ import React, { Component } from 'react'
 import { defaultPresenter, presentable } from 'presentable'
 import appendInstance from 'append-instance'
 
-@presentable
-@themeable
-//
 @appendInstance
+@themeable
 class SomeComponent extends Component {}
 ```
