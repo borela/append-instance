@@ -1,0 +1,4 @@
+{
+  "extends": "@ctrine/build-config",
+  "parser": "Babel-ESLint"
+}
