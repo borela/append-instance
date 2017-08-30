@@ -1,0 +1,47 @@
+{
+  "name": "append-instance",
+  "version": "1.0.0",
+  "description": "Decorator to add the component’s instance to the event handler’s arguments.",
+  "license": "Apache-2.0",
+  "main": "build",
+  "scripts": {
+    "clean": "rimraf \"build/!(.git)\"",
+    "build": "npm run clean && babel src -d build --ignore **/__*__/** -s",
+    "dev": "jest src --verbose --watch",
+    "start": "npm run dev",
+    "test": "jest src --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borela/presentable-handlers.git"
+  },
+  "bugs": {
+    "url": "https://github.com/borela/presentable-handlers/issues"
+  },
+  "homepage": "https://github.com/borela/presentable-handlers#readme",
+  "keywords": [
+    "ctrine",
+    "decorator",
+    "themeable",
+    "react",
+    "ui",
+    "view"
+  ],
+  "author": [
+    {
+      "name": "Alexandre Borela",
+      "email": "alexandre@borela.tech",
+      "url": "http://www.borela.tech"
+    }
+  ],
+  "devDependencies": {
+    "@ctrine/babel-preset-lib": "^3.0.0",
+    "@ctrine/toolbox": "^6.0.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "themeable": "^2.2.2"
+  },
+  "peerDependencies": {
+    "themeable": "^2.2.2"
+  }
+}
