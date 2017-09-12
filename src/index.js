@@ -37,7 +37,8 @@ export function appendInstance(targetComponent:Class<Component>) {
   prototype.getThemeableData = function() {
     let result = oldGetThemeableData.call(this)
     let props = result.props
-    for (let propName in result.props) {
+
+    for (let propName in props) {
       if (!HANDLER_IDENTIFIER.test(propName))
         continue
       let oldHandler = props[propName]
