@@ -43,5 +43,8 @@
   },
   "peerDependencies": {
     "themeable": "^2.2.2"
+  },
+  "dependencies": {
+    "lodash.partialright": "^4.2.1"
   }
 }
