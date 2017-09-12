@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/borela/presentable-handlers.git"
+    "url": "git+https://github.com/borela/append-instance.git"
   },
   "bugs": {
-    "url": "https://github.com/borela/presentable-handlers/issues"
+    "url": "https://github.com/borela/append-instance/issues"
   },
-  "homepage": "https://github.com/borela/presentable-handlers#readme",
+  "homepage": "https://github.com/borela/append-instance#readme",
   "keywords": [
     "ctrine",
     "decorator",
