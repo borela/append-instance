@@ -12,9 +12,8 @@
 
 import appendInstance from '..'
 import React, { Component } from 'react'
-import presentable from 'presentable'
+import presentable, { defaultPresenter } from 'presentable'
 import themeable from 'themeable'
-import { defaultPresenter } from 'presentable'
 import { shallow } from 'enzyme'
 
 class SomePresenter extends Component {
