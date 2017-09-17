@@ -12,11 +12,16 @@
 // @flow
 
 import { Component } from 'react'
+import { isPresentable } from 'presentable'
+import { isThemeable } from 'themeable'
 import partialRight from 'lodash.partialright'
 
 const HANDLER_IDENTIFIER = /^on[A-Z]\w*/
 
 export function appendInstance(targetComponent:Class<Component>) {
+  if (!isPresentable(targetComponent))
+    throw new Error(`Component “${targetComponent.construtor.name}”is not presentable.`)
+
   let prototype = targetComponent.prototype
 
   prototype.raiseEvent = function(event, ...args) {
@@ -33,19 +38,36 @@ export function appendInstance(targetComponent:Class<Component>) {
     }
   }
 
-  let oldGetThemeableData = prototype.getThemeableData
-  prototype.getThemeableData = function() {
-    let result = oldGetThemeableData.call(this)
-    let props = result.props
+  if (isThemeable(targetComponent)) {
+    let oldGetThemeableData = prototype.getThemeableData
+    prototype.getThemeableData = function() {
+      let result = oldGetThemeableData.call(this)
+      let props = result.props
 
-    for (let propName in props) {
-      if (!HANDLER_IDENTIFIER.test(propName))
-        continue
-      let oldHandler = props[propName]
-      props[propName] = partialRight(oldHandler, this)
+      for (let propName in props) {
+        if (!HANDLER_IDENTIFIER.test(propName))
+          continue
+        let oldHandler = props[propName]
+        props[propName] = partialRight(oldHandler, this)
+      }
+
+      return result
     }
+  } else {
+    let oldGetPresetanbleData = prototype.getPresentableData
+    prototype.getPresentableData = function() {
+      let result = oldGetPresetanbleData.call(this)
+      let props = result.props
 
-    return result
+      for (let propName in props) {
+        if (!HANDLER_IDENTIFIER.test(propName))
+          continue
+        let oldHandler = props[propName]
+        props[propName] = partialRight(oldHandler, this)
+      }
+
+      return result
+    }
   }
 
   return targetComponent

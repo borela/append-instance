@@ -1,6 +1,6 @@
 {
   "name": "append-instance",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Decorator to add the component’s instance to the event handler’s arguments.",
   "license": "Apache-2.0",
   "main": "build",
@@ -37,9 +37,11 @@
     "@ctrine/toolbox": "^6.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "presentable": "^3.4.1",
     "themeable": "^2.2.2"
   },
   "peerDependencies": {
+    "presentable": "^3.4.1",
     "themeable": "^2.2.2"
   },
   "dependencies": {
