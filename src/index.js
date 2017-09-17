@@ -11,10 +11,10 @@
 // the License.
 // @flow
 
+import partialRight from 'lodash.partialright'
 import { Component } from 'react'
 import { isPresentable } from 'presentable'
 import { isThemeable } from 'themeable'
-import partialRight from 'lodash.partialright'
 
 const HANDLER_IDENTIFIER = /^on[A-Z]\w*/
 
