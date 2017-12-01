@@ -9,7 +9,6 @@
 // WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 // License for the specific language governing permissions and limitations under
 // the License.
-// @flow
 
 import partialRight from 'lodash.partialright'
 import { Component } from 'react'
@@ -18,7 +17,7 @@ import { isThemeable } from 'themeable'
 
 const HANDLER_IDENTIFIER = /^on[A-Z]\w*/
 
-export function appendInstance(targetComponent:Class<Component>) {
+export function appendInstance(targetComponent:Class<Component<*>>) {
   if (!isPresentable(targetComponent))
     throw new Error(`Component “${targetComponent.construtor.name}”is not presentable.`)
 
