@@ -10,11 +10,14 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
+import Adapter from 'enzyme-adapter-react-16'
 import appendInstance from '..'
-import React, { Component } from 'react'
 import presentable, { defaultPresenter } from 'presentable'
+import React, { Component } from 'react'
 import themeable from 'themeable'
-import { shallow } from 'enzyme'
+import { configure, shallow } from 'enzyme'
+
+configure({ adapter: new Adapter })
 
 class SomePresenter extends Component {
   render() {
@@ -29,7 +32,7 @@ class SomePresenter extends Component {
 @defaultPresenter(SomePresenter)
 class SomePresentableComponent extends Component {}
 
-@themeable('...')
+@themeable
 @defaultPresenter(SomePresenter)
 class SomeThemeableComponent extends Component {}
 
