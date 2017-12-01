@@ -13,7 +13,6 @@
 import partialRight from 'lodash.partialright'
 import { Component } from 'react'
 import { isPresentable } from 'presentable'
-import { isThemeable } from 'themeable'
 
 const HANDLER_IDENTIFIER = /^on[A-Z]\w*/
 
@@ -37,36 +36,19 @@ export function appendInstance(targetComponent:Class<Component<*>>) {
     }
   }
 
-  if (isThemeable(targetComponent)) {
-    let oldGetThemeableData = prototype.getThemeableData
-    prototype.getThemeableData = function() {
-      let result = oldGetThemeableData.call(this)
-      let props = result.props
+  let oldGetPresetanbleData = prototype.getPresentableData
+  prototype.getPresentableData = function() {
+    let result = oldGetPresetanbleData.call(this)
+    let props = result.props
 
-      for (let propName in props) {
-        if (!HANDLER_IDENTIFIER.test(propName))
-          continue
-        let oldHandler = props[propName]
-        props[propName] = partialRight(oldHandler, this)
-      }
-
-      return result
+    for (let propName in props) {
+      if (!HANDLER_IDENTIFIER.test(propName))
+        continue
+      let oldHandler = props[propName]
+      props[propName] = partialRight(oldHandler, this)
     }
-  } else {
-    let oldGetPresetanbleData = prototype.getPresentableData
-    prototype.getPresentableData = function() {
-      let result = oldGetPresetanbleData.call(this)
-      let props = result.props
 
-      for (let propName in props) {
-        if (!HANDLER_IDENTIFIER.test(propName))
-          continue
-        let oldHandler = props[propName]
-        props[propName] = partialRight(oldHandler, this)
-      }
-
-      return result
-    }
+    return result
   }
 
   return targetComponent
