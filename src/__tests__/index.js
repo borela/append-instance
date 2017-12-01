@@ -19,11 +19,14 @@ import { configure, shallow } from 'enzyme'
 
 configure({ adapter: new Adapter })
 
+const ON_D_ARG = { a: 1, b: 2, c: 3 }
+const ARG = { x: 123, z: 42 }
+
 class SomePresenter extends Component {
   render() {
     let { props: { onD }} = this.props.presentable
     if (onD)
-      onD({})
+      onD(ON_D_ARG)
     return <div>Ctrine!</div>
   }
 }
@@ -43,19 +46,17 @@ describe('Decorator “appendInstance” applied on presentable “SomeComponent
   it('has the same constructor', () => {
     const WRAPPER = shallow(<DecoratedPresentable/>)
     const INSTANCE = WRAPPER.instance()
-    expect(INSTANCE instanceof SomePresentableComponent)
-      .toBe(true)
-    expect(Object.getPrototypeOf(INSTANCE).constructor)
-      .toBe(SomePresentableComponent)
+    expect(INSTANCE instanceof SomePresentableComponent).toBe(true)
+    expect(Object.getPrototypeOf(INSTANCE).constructor).toBe(SomePresentableComponent)
   })
 
   it('has a method to raise an event', () => {
     let handlerA = jest.fn()
     const WRAPPER = shallow(<SomePresentableComponent onA={handlerA}/>)
     const COMPONENT = WRAPPER.instance()
-    COMPONENT.raiseEvent('onA', {})
+    COMPONENT.raiseEvent('onA', ARG)
     expect(handlerA).toHaveBeenCalledTimes(1)
-    expect(handlerA).toBeCalledWith({}, COMPONENT)
+    expect(handlerA).toBeCalledWith(ARG, COMPONENT)
   })
 
   it('has a method to raise multiple events', () => {
@@ -70,17 +71,18 @@ describe('Decorator “appendInstance” applied on presentable “SomeComponent
         onC={handlerC}
       />
     )
+
     const COMPONENT = WRAPPER.instance()
-    COMPONENT.raiseEvents([ 'onA', 'onB', 'onC' ], {})
+    COMPONENT.raiseEvents([ 'onA', 'onB', 'onC' ], ARG)
 
     expect(handlerA).toHaveBeenCalledTimes(1)
-    expect(handlerA).toBeCalledWith({}, COMPONENT)
+    expect(handlerA).toBeCalledWith(ARG, COMPONENT)
 
     expect(handlerB).toHaveBeenCalledTimes(1)
-    expect(handlerB).toBeCalledWith({}, COMPONENT)
+    expect(handlerB).toBeCalledWith(ARG, COMPONENT)
 
     expect(handlerC).toHaveBeenCalledTimes(1)
-    expect(handlerC).toBeCalledWith({}, COMPONENT)
+    expect(handlerC).toBeCalledWith(ARG, COMPONENT)
   })
 
   it('appends the component’s instance to the event handlers passed to the presenter', () => {
@@ -90,7 +92,7 @@ describe('Decorator “appendInstance” applied on presentable “SomeComponent
     // The handler will be called in the presenter’s render method.
     WRAPPER.dive()
     expect(handlerD).toHaveBeenCalledTimes(1)
-    expect(handlerD).toBeCalledWith({}, COMPONENT)
+    expect(handlerD).toBeCalledWith(ON_D_ARG, COMPONENT)
   })
 })
 
@@ -98,19 +100,17 @@ describe('Decorator “appendInstance” applied on themeable “SomeComponent�
   it('has the same constructor', () => {
     const WRAPPER = shallow(<DecoratedThemeable/>)
     const INSTANCE = WRAPPER.instance()
-    expect(INSTANCE instanceof SomeThemeableComponent)
-      .toBe(true)
-    expect(Object.getPrototypeOf(INSTANCE).constructor)
-      .toBe(SomeThemeableComponent)
+    expect(INSTANCE instanceof SomeThemeableComponent).toBe(true)
+    expect(Object.getPrototypeOf(INSTANCE).constructor).toBe(SomeThemeableComponent)
   })
 
   it('has a method to raise an event', () => {
     let handlerA = jest.fn()
     const WRAPPER = shallow(<SomeThemeableComponent onA={handlerA}/>)
     const COMPONENT = WRAPPER.instance()
-    COMPONENT.raiseEvent('onA', {})
+    COMPONENT.raiseEvent('onA', ARG)
     expect(handlerA).toHaveBeenCalledTimes(1)
-    expect(handlerA).toBeCalledWith({}, COMPONENT)
+    expect(handlerA).toBeCalledWith(ARG, COMPONENT)
   })
 
   it('has a method to raise multiple events', () => {
@@ -126,16 +126,16 @@ describe('Decorator “appendInstance” applied on themeable “SomeComponent�
       />
     )
     const COMPONENT = WRAPPER.instance()
-    COMPONENT.raiseEvents([ 'onA', 'onB', 'onC' ], {})
+    COMPONENT.raiseEvents([ 'onA', 'onB', 'onC' ], ARG)
 
     expect(handlerA).toHaveBeenCalledTimes(1)
-    expect(handlerA).toBeCalledWith({}, COMPONENT)
+    expect(handlerA).toBeCalledWith(ARG, COMPONENT)
 
     expect(handlerB).toHaveBeenCalledTimes(1)
-    expect(handlerB).toBeCalledWith({}, COMPONENT)
+    expect(handlerB).toBeCalledWith(ARG, COMPONENT)
 
     expect(handlerC).toHaveBeenCalledTimes(1)
-    expect(handlerC).toBeCalledWith({}, COMPONENT)
+    expect(handlerC).toBeCalledWith(ARG, COMPONENT)
   })
 
   it('appends the component’s instance to the event handlers passed to the presenter', () => {
@@ -145,6 +145,6 @@ describe('Decorator “appendInstance” applied on themeable “SomeComponent�
     // The handler will be called in the presenter’s render method.
     WRAPPER.dive()
     expect(handlerD).toHaveBeenCalledTimes(1)
-    expect(handlerD).toBeCalledWith({}, COMPONENT)
+    expect(handlerD).toBeCalledWith(ON_D_ARG, COMPONENT)
   })
 })
